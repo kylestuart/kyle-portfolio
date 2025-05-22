@@ -17,22 +17,38 @@
     </style>
   </head>
   <body class="max-w-[1440px] mx-auto px-[40px] pt-[40px]">
-    <header class="relative flex justify-between items-start w-full mb-[120px]">
-      <!-- Left group: KS.W, Work, Info -->
-      <div class="flex gap-[48px] text-[14px] font-medium leading-[17px] tracking-[-0.01em] uppercase">
-        <div class="bg-[#2BF743] px-[12px] py-[4px]">KS.W</div>
-        <div class="bg-[#F6F632] px-[12px] py-[4px]">Work</div>
-        <div class="bg-[#FFA3AC] px-[12px] py-[4px]">Info</div>
+    <header class="flex items-start justify-between w-full h-[48px] flex-shrink-0 mb-[120px]">
+      <!-- primary-navigation -->
+      <div class="inline-flex items-start gap-[10px]">
+        <button class="flex w-[104px] p-[12px] justify-center items-center gap-[10px] rounded-[8px] bg-[#2BF743] text-[14px] font-medium leading-[17px] tracking-[-0.01em] uppercase">KS.W</button>
+        <button class="flex w-[104px] p-[12px] justify-center items-center gap-[10px] rounded-[8px] bg-[#F6F632] text-[14px] font-medium leading-[17px] tracking-[-0.01em] uppercase">Work</button>
+        <button class="flex w-[104px] p-[12px] justify-center items-center gap-[10px] rounded-[8px] bg-[#FFA3AC] text-[14px] font-medium leading-[17px] tracking-[-0.01em] uppercase">Info</button>
       </div>
 
-      <!-- Center group: grid-mode toggle -->
-      <div class="absolute left-1/2 -translate-x-1/2 top-0 flex gap-[12px] text-[14px] font-normal leading-[17px] tracking-[0em] uppercase" role="group" aria-label="Grid mode toggle">
-        <button class="bg-black text-white px-[12px] py-[4px]">Grid</button>
-        <button class="bg-[#E5E5E5] text-black px-[12px] py-[4px]">Stack</button>
+      <!-- grid-mode -->
+      <div class="flex w-[104px] h-[32px] p-[12px] justify-center items-center gap-[24px] flex-shrink-0">
+        <div class="w-[12px] h-[12px]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <rect x="6.10352e-05" y="0.000349045" width="5.14286" height="5.14286" fill="black" />
+            <rect x="6.86084" y="0.00037384" width="5.14286" height="5.14286" fill="black" />
+            <rect x="6.10352e-05" y="6.85691" width="5.14286" height="5.14286" fill="black" />
+            <rect x="6.86084" y="6.85691" width="5.14286" height="5.14286" fill="black" />
+          </svg>
+        </div>
+        <div class="w-[12px] h-[12px]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <g opacity="0.2">
+              <rect y="12" width="12" height="1.71429" transform="rotate(-90 0 12)" fill="black" />
+              <rect x="3.42859" y="12" width="12" height="1.71429" transform="rotate(-90 3.42859 12)" fill="black" />
+              <rect x="6.85712" y="12" width="12" height="1.71429" transform="rotate(-90 6.85712 12)" fill="black" />
+              <rect x="10.2857" y="12" width="12" height="1.71429" transform="rotate(-90 10.2857 12)" fill="black" />
+            </g>
+          </svg>
+        </div>
       </div>
 
-      <!-- Right group: time and weather -->
-      <div class="flex flex-col items-end text-[12px] font-normal leading-[14px] tracking-[0em] uppercase gap-[4px]">
+      <!-- time-weather -->
+      <div class="inline-flex p-[12px_24px] justify-end items-center gap-[10px] rounded-[8px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[50px] text-[12px] leading-[14px] font-normal tracking-[0em] uppercase">
         <span id="time">--:--:--</span>
         <span id="weather">Loading…</span>
       </div>
