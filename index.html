@@ -17,17 +17,22 @@
     </style>
   </head>
   <body class="max-w-[1440px] mx-auto px-[40px] pt-[40px]">
-    <header class="relative w-full mb-[120px] h-[58px]">
-      <div class="absolute left-0 top-0 flex flex-col gap-[8px]">
-        <div class="text-[14px] leading-[17px] tracking-[-0.01em] uppercase">KS.W</div>
-        <div class="flex gap-[12px]" role="group" aria-label="Grid mode toggle">
-          <button class="text-[14px] leading-[17px] tracking-[-0.01em] uppercase opacity-100">Grid</button>
-          <button class="text-[14px] leading-[17px] tracking-[-0.01em] uppercase opacity-50">Stack</button>
-        </div>
+    <header class="flex justify-between items-start w-full mb-[120px]">
+      <!-- Left group: KS.W, Work, Info -->
+      <div class="flex gap-[48px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase">
+        <div>KS.W</div>
+        <div>Work</div>
+        <div>Info</div>
       </div>
-      <div class="absolute left-1/2 top-0 -translate-x-1/2 text-[14px] leading-[17px] tracking-[-0.01em] uppercase">Work</div>
-      <div class="absolute right-0 top-0 flex flex-col items-end text-[12px] leading-[14px] tracking-[-0.01em] uppercase gap-[4px]">
-        <span class="text-[14px] leading-[17px]">Info</span>
+
+      <!-- Center group: grid-mode toggle -->
+      <div class="flex gap-[12px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase" role="group" aria-label="Grid mode toggle">
+        <button class="opacity-100">Grid</button>
+        <button class="opacity-50">Stack</button>
+      </div>
+
+      <!-- Right group: time and weather -->
+      <div class="flex flex-col items-end text-[12px] leading-[14px] tracking-[-0.01em] uppercase gap-[4px]">
         <span id="time">--:--:--</span>
         <span id="weather">Loading…</span>
       </div>
