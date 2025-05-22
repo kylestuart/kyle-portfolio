@@ -15,28 +15,26 @@
         color: #000;
       }
     </style>
-  </head>
-  <body class="max-w-[1440px] mx-auto px-[40px] pt-[40px]">
-    <header class="flex justify-between items-start w-full mb-[120px]">
-      <!-- Left group: KS.W, Work, Info -->
-      <div class="flex gap-[48px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase">
-        <div>KS.W</div>
-        <div>Work</div>
-        <div>Info</div>
-      </div>
-
-      <!-- Center group: grid-mode toggle -->
-      <div class="flex gap-[12px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase" role="group" aria-label="Grid mode toggle">
-        <button class="opacity-100">Grid</button>
-        <button class="opacity-50">Stack</button>
-      </div>
-
-      <!-- Right group: time and weather -->
-      <div class="flex flex-col items-end text-[12px] leading-[14px] tracking-[-0.01em] uppercase gap-[4px]">
-        <span id="time">--:--:--</span>
-        <span id="weather">Loading…</span>
-      </div>
-    </header>
+  <header class="relative flex justify-between items-start w-full mb-[120px]">
+    <!-- Left group -->
+    <div class="flex gap-[48px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase">
+      <div>KS.W</div>
+      <div>Work</div>
+      <div>Info</div>
+    </div>
+  
+    <!-- Center group (absolute center) -->
+    <div class="absolute left-1/2 -translate-x-1/2 top-0 flex gap-[12px] text-[14px] leading-[17px] tracking-[-0.01em] uppercase" role="group" aria-label="Grid mode toggle">
+      <button class="opacity-100">Grid</button>
+      <button class="opacity-50">Stack</button>
+    </div>
+  
+    <!-- Right group -->
+    <div class="flex flex-col items-end text-[12px] leading-[14px] tracking-[-0.01em] uppercase gap-[4px]">
+      <span id="time">--:--:--</span>
+      <span id="weather">Loading…</span>
+    </div>
+  </header>  
 
     <script>
       function updateTime() {
