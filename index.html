@@ -26,7 +26,7 @@
     </style>
   </head>
   <body class="px-[8px] pt-[8px] overflow-hidden">
-    <header class="fixed top-0 left-0 z-10 w-full flex items-center justify-between  flex-shrink-0 mb-[120px] px-[0px]">
+    <header class="fixed top-0 left-0 z-10 w-full flex items-center justify-between flex-shrink-0 mb-[120px] p-[8px]">
       <div class="inline-flex items-center gap-0">
         <button class="header-text flex w-[104px]  p-[8px] justify-center items-center gap-[10px] rounded-[8px] bg-[#2BF743]">KS.W</button>
         <button class="header-text flex w-[104px] p-[8px] justify-center items-center gap-[10px] rounded-[8px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[100px]">Work</button>
@@ -58,16 +58,27 @@
       </div>
     </header>
 
-    <main class="fixed inset-0 z-0 overflow-hidden">
-      <div class="absolute top-0 left-0 w-[300vw] h-[300vh]">
-        <div id="grid" class="absolute top-0 left-0 grid grid-cols-12 grid-rows-12 w-full h-full">
-" +
-        Array.from({ length: 144 }, (_, i) => `  <img src="https://placehold.co/300x300?text=${i + 1}" class="w-full h-full object-cover" />`).join('
-') +
-        "
-</div>
-      </div>
-    </main>
+    <main class="fixed inset-0 z-0 overflow-hidden p-[8px]">
+  <div class="absolute top-0 bottom-0 left-0 right-0 flex gap-[8px]">
+    <!-- Column 1 -->
+    <div class="flex-1 overflow-y-scroll flex flex-col gap-[8px]">
+      " + Array.from({ length: 10 }, (_, i) => `<img src="https://placehold.co/400x300?text=Left+${i+1}" class="w-full h-auto object-cover" />`).join("
+") + "
+    </div>
+    <!-- Column 2 (reversed scroll) -->
+    <div class="flex-1 overflow-y-scroll flex flex-col-reverse gap-[8px]">
+      " + Array.from({ length: 10 }, (_, i) => `<img src="https://placehold.co/400x300?text=Middle+${i+1}" class="w-full h-auto object-cover" />`).join("
+") + "
+    </div>
+    <!-- Column 3 -->
+    <div class="flex-1 overflow-y-scroll flex flex-col gap-[8px]">
+      " + Array.from({ length: 10 }, (_, i) => `<img src="https://placehold.co/400x300?text=Right+${i+1}" class="w-full h-auto object-cover" />`).join("
+") + "
+    </div>
+  </div>
+</main>
+
+
 
     <script>
       function updateTime() {
@@ -98,33 +109,6 @@
       </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/utils/ModularEase.min.js"></script>
-    <script>
-      gsap.registerPlugin(Draggable);
-
-      const grid = document.getElementById('grid');
-      const tileSizeX = grid.offsetWidth;
-      const tileSizeY = grid.offsetHeight;
-
-      gsap.set(grid, { x: -window.innerWidth * 1.5, y: -window.innerHeight * 1.5 });
-
-      Draggable.create(grid, {
-        type: "x,y",
-        inertia: true,
-        onDrag: function () {
-          const x = this.x % tileSizeX;
-          const y = this.y % tileSizeY;
-          gsap.set(grid, { x, y });
-        },
-        onThrowUpdate: function () {
-          const x = this.x % tileSizeX;
-          const y = this.y % tileSizeY;
-          gsap.set(grid, { x, y });
-        }
-      });
-    </script>
+    
   </body>
 </html>
