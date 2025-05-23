@@ -26,8 +26,8 @@
       }
     </style>
   </head>
-  <body class="px-[8px] pt-[8px]">
-    <header class="w-full flex items-center justify-between  flex-shrink-0 mb-[120px] px-[0px]">
+  <body class="px-[8px] pt-[8px] overflow-hidden">
+    <header class="fixed top-0 left-0 z-10 w-full flex items-center justify-between  flex-shrink-0 mb-[120px] px-[0px]">
       <!-- primary-navigation -->
       <div class="inline-flex items-center gap-0">
         <button class="header-text flex w-[104px]  p-[8px] justify-center items-center gap-[10px] rounded-[8px] bg-[#2BF743]">KS.W</button>
@@ -136,24 +136,36 @@
 
   cloneGridContent();
 
-  Draggable.create("#grid", {
-    type: "x,y",
-    edgeResistance: 0.5,
-    inertia: true,
-    onDragEnd: function () {
-      const gridWidth = grid.offsetWidth;
-      const gridHeight = grid.offsetHeight;
+  let draggable = Draggable.create("#grid", {
+  type: "x,y",
+  inertia: true,
+  edgeResistance: 0,
+  onDrag: function () {
+    const x = this.x;
+    const y = this.y;
+    const gridW = grid.offsetWidth / 3;
+    const gridH = grid.offsetHeight / 3;
 
-      if (this.x < -gridWidth / 2 || this.x > gridWidth / 2) {
-        this.endX = 0;
-        gsap.set(grid, { x: 0 });
-      }
-      if (this.y < -gridHeight / 2 || this.y > gridHeight / 2) {
-        this.endY = 0;
-        gsap.set(grid, { y: 0 });
-      }
+    // Reset X
+    if (x < -gridW) {
+      this.x += gridW;
+      gsap.to(grid, { x: this.x, duration: 0.3, ease: "power2.out" });
+    } else if (x > 0) {
+      this.x -= gridW;
+      gsap.set(grid, { x: this.x });
     }
-  });
+
+    // Reset Y
+    if (y < -gridH) {
+      this.y += gridH;
+      gsap.to(grid, { y: this.y, duration: 0.3, ease: "power2.out" });
+    } else if (y > 0) {
+      this.y -= gridH;
+      gsap.set(grid, { y: this.y });
+    }
+  }
+})[0];
+      
 </script>
 </body>
 </html>
