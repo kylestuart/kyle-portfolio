@@ -118,6 +118,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/utils/ModularEase.min.js"></script>
 <script>
   gsap.registerPlugin(Draggable);
 
@@ -136,35 +138,31 @@
 
   cloneGridContent();
 
-  let draggable = Draggable.create("#grid", {
-  type: "x,y",
-  inertia: true,
-  edgeResistance: 0,
-  onDrag: function () {
-    const x = this.x;
-    const y = this.y;
-    const gridW = grid.offsetWidth / 3;
-    const gridH = grid.offsetHeight / 3;
+  const tileSizeX = grid.offsetWidth;
+  const tileSizeY = grid.offsetHeight;
 
-    // Reset X
-    if (x < -gridW) {
-      gsap.set(grid, { x: this.x + gridW });
-      this.update();
-    } else if (x > 0) {
-      gsap.set(grid, { x: this.x - gridW });
-      this.update();
-    }
+  gsap.set(grid, { x: -window.innerWidth, y: -window.innerHeight });
 
-    // Reset Y
-    if (y < -gridH) {
-      gsap.set(grid, { y: this.y + gridH });
-      this.update();
-    } else if (y > 0) {
-      gsap.set(grid, { y: this.y - gridH });
-      this.update();
+  Draggable.create(grid, {
+    type: "x,y",
+    inertia: true,
+    onDrag: function () {
+      const x = this.x % tileSizeX;
+      const y = this.y % tileSizeY;
+      gsap.set(grid, {
+        x: x,
+        y: y
+      });
+    },
+    onThrowUpdate: function () {
+      const x = this.x % tileSizeX;
+      const y = this.y % tileSizeY;
+      gsap.set(grid, {
+        x: x,
+        y: y
+      });
     }
-  }
-})[0];
+  });
       
 </script>
 </body>
