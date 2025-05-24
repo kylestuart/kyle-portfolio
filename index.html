@@ -84,7 +84,7 @@
       const images = document.querySelectorAll('.hover-image');
 
       window.addEventListener('resize', () => {
-        containerWidth = imageRow.offsetWidth;
+        layoutImages();
       });
 
       images.forEach((img, i) => {
@@ -109,26 +109,21 @@
         });
 
         img.addEventListener('mouseleave', () => {
-          const baseSlot = containerWidth / numImages;
-          images.forEach((el, j) => {
-            el.style.left = `${j * baseSlot}px`;
-            el.style.width = `${baseSlot}px`;
-            el.style.height = `${baseSlot}px`;
-            el.style.zIndex = '1';
-            el.style.transition = 'all 0.3s ease';
-          });
+          layoutImages();
         });
       });
 
-      // Initialize layout
-      window.addEventListener('load', () => {
+      function layoutImages() {
+        containerWidth = imageRow.offsetWidth;
         const baseSlot = containerWidth / numImages;
         images.forEach((el, j) => {
           el.style.left = `${j * baseSlot}px`;
           el.style.width = `${baseSlot}px`;
           el.style.height = `${baseSlot}px`;
         });
-      });
+      }
+
+      layoutImages();
     </script>
 
     <script>
