@@ -72,46 +72,16 @@
       const baseWidth = 80;
       let containerWidth = imageRow.offsetWidth;
 
-      // Add images
       for (let i = 0; i < numImages; i++) {
         const img = document.createElement('img');
         img.src = `https://placehold.co/80x80?text=${i + 1}`;
-        img.className = 'hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2';
+        img.className = 'hover-image absolute top-1/2 -translate-y-1/2';
+        img.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease, left 0.3s ease';
         img.setAttribute('data-index', i);
         imageRow.appendChild(img);
       }
 
       const images = document.querySelectorAll('.hover-image');
-
-      window.addEventListener('resize', () => {
-        layoutImages();
-      });
-
-      images.forEach((img, i) => {
-        img.addEventListener('mouseenter', () => {
-          const weights = Array.from({ length: numImages }, (_, j) => {
-            const distance = Math.abs(i - j);
-            return distance === 0 ? 3 : distance === 1 ? 1.8 : distance === 2 ? 1.4 : 1;
-          });
-
-          const totalWeight = weights.reduce((sum, w) => sum + w, 0);
-          const pixelWidths = weights.map(w => (w / totalWeight) * containerWidth);
-
-          let currentLeft = 0;
-          images.forEach((el, j) => {
-            el.style.left = `${currentLeft}px`;
-            el.style.width = `${pixelWidths[j]}px`;
-            el.style.height = `${(pixelWidths[j] / baseWidth) * 80}px`;
-            el.style.zIndex = j === i ? 2 : 1;
-            el.style.transition = 'all 0.3s ease';
-            currentLeft += pixelWidths[j];
-          });
-        });
-
-        img.addEventListener('mouseleave', () => {
-          layoutImages();
-        });
-      });
 
       function layoutImages() {
         containerWidth = imageRow.offsetWidth;
@@ -122,6 +92,35 @@
           el.style.height = `${baseSlot}px`;
         });
       }
+
+      window.addEventListener('resize', layoutImages);
+
+      images.forEach((img, i) => {
+        img.addEventListener('mouseenter', () => {
+          requestAnimationFrame(() => {
+            const weights = Array.from({ length: numImages }, (_, j) => {
+              const distance = Math.abs(i - j);
+              return distance === 0 ? 3 : distance === 1 ? 1.8 : distance === 2 ? 1.4 : 1;
+            });
+
+            const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+            const pixelWidths = weights.map(w => (w / totalWeight) * containerWidth);
+
+            let currentLeft = 0;
+            images.forEach((el, j) => {
+              el.style.left = `${currentLeft}px`;
+              el.style.width = `${pixelWidths[j]}px`;
+              el.style.height = `${(pixelWidths[j] / baseWidth) * 80}px`;
+              el.style.zIndex = j === i ? 2 : 1;
+              currentLeft += pixelWidths[j];
+            });
+          });
+        });
+
+        img.addEventListener('mouseleave', () => {
+          layoutImages();
+        });
+      });
 
       layoutImages();
     </script>
