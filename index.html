@@ -63,69 +63,73 @@
     </header>
 
     <main class="pt-[64px] pb-[64px] px-[8px] w-full min-h-screen flex items-center justify-center">
-      <div id="imageRow" class="relative w-screen h-[200px] flex items-center px-0">
-  <img src="https://placehold.co/80x80?text=1" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="0" style="left: 0px;" />
-  <img src="https://placehold.co/80x80?text=2" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="1" style="left: 80px;" />
-  <img src="https://placehold.co/80x80?text=3" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="2" style="left: 160px;" />
-  <img src="https://placehold.co/80x80?text=4" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="3" style="left: 240px;" />
-  <img src="https://placehold.co/80x80?text=4" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="4" style="left: 320px;" />
-  <img src="https://placehold.co/80x80?text=6" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="5" style="left: 400px;" />
-  <img src="https://placehold.co/80x80?text=7" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="6" style="left: 480px;" />
-  <img src="https://placehold.co/80x80?text=8" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="7" style="left: 560px;" />
-  <img src="https://placehold.co/80x80?text=9" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="8" style="left: 640px;" />
-  <img src="https://placehold.co/80x80?text=10" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="9" style="left: 720px;" />
-  <img src="https://placehold.co/80x80?text=11" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="10" style="left: 800px;" />
-  <img src="https://placehold.co/80x80?text=12" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="11" style="left: 880px;" />
-  <img src="https://placehold.co/80x80?text=13" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="12" style="left: 960px;" />
-  <img src="https://placehold.co/80x80?text=14" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="13" style="left: 1040px;" />
-  <img src="https://placehold.co/80x80?text=15" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="14" style="left: 1120px;" />
-  <img src="https://placehold.co/80x80?text=16" class="hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2" data-index="15" style="left: 1200px;" />
-</div>
+      <div id="imageRow" class="relative w-screen h-[200px] flex items-center px-0"></div>
     </main>
 
     <script>
-  const images = document.querySelectorAll('.hover-image');
-  const container = document.getElementById('imageRow');
-  let containerWidth = container.offsetWidth;
-  window.addEventListener('resize', () => containerWidth = container.offsetWidth);
-  const baseWidth = 80;
-  const numImages = 16;
+      const imageRow = document.getElementById('imageRow');
+      const numImages = 16;
+      const baseWidth = 80;
+      let containerWidth = imageRow.offsetWidth;
 
-  images.forEach((img, i) => {
-    img.addEventListener('mouseenter', () => {
-      // Define weight curve
-      const weights = Array.from({ length: numImages }, (_, j) => {
-        const distance = Math.abs(i - j);
-        return distance === 0 ? 3 : distance === 1 ? 1.8 : distance === 2 ? 1.4 : 1;
+      // Add images
+      for (let i = 0; i < numImages; i++) {
+        const img = document.createElement('img');
+        img.src = `https://placehold.co/80x80?text=${i + 1}`;
+        img.className = 'hover-image absolute transition-transform duration-300 top-1/2 -translate-y-1/2';
+        img.setAttribute('data-index', i);
+        imageRow.appendChild(img);
+      }
+
+      const images = document.querySelectorAll('.hover-image');
+
+      window.addEventListener('resize', () => {
+        containerWidth = imageRow.offsetWidth;
       });
 
-      // Normalize to fit containerWidth
-      const totalWeight = weights.reduce((sum, w) => sum + w, 0);
-      const pixelWidths = weights.map(w => (w / totalWeight) * containerWidth);
+      images.forEach((img, i) => {
+        img.addEventListener('mouseenter', () => {
+          const weights = Array.from({ length: numImages }, (_, j) => {
+            const distance = Math.abs(i - j);
+            return distance === 0 ? 3 : distance === 1 ? 1.8 : distance === 2 ? 1.4 : 1;
+          });
 
-      // Set width + position
-      let currentLeft = 0;
-      images.forEach((el, j) => {
-      el.style.left = `${currentLeft}px`;
-      el.style.width = `${pixelWidths[j]}px`;
-      el.style.height = `${(pixelWidths[j] / baseWidth) * 80}px`;
-      currentLeft += pixelWidths[j];
-        el.style.zIndex = j === i ? 2 : 1;
-        el.style.transition = 'all 0.3s ease';
-      });
-    });
+          const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+          const pixelWidths = weights.map(w => (w / totalWeight) * containerWidth);
 
-    img.addEventListener('mouseleave', () => {
-      images.forEach((el, j) => {
-        el.style.left = `${j * 80}px`;
-        el.style.width = '80px';
-        el.style.height = '80px';
-        el.style.zIndex = '1';
-        el.style.transition = 'all 0.3s ease';
+          let currentLeft = 0;
+          images.forEach((el, j) => {
+            el.style.left = `${currentLeft}px`;
+            el.style.width = `${pixelWidths[j]}px`;
+            el.style.height = `${(pixelWidths[j] / baseWidth) * 80}px`;
+            el.style.zIndex = j === i ? 2 : 1;
+            el.style.transition = 'all 0.3s ease';
+            currentLeft += pixelWidths[j];
+          });
+        });
+
+        img.addEventListener('mouseleave', () => {
+          const baseSlot = containerWidth / numImages;
+          images.forEach((el, j) => {
+            el.style.left = `${j * baseSlot}px`;
+            el.style.width = `${baseSlot}px`;
+            el.style.height = `${baseSlot}px`;
+            el.style.zIndex = '1';
+            el.style.transition = 'all 0.3s ease';
+          });
+        });
       });
-    });
-  });
-</script>
+
+      // Initialize layout
+      window.addEventListener('load', () => {
+        const baseSlot = containerWidth / numImages;
+        images.forEach((el, j) => {
+          el.style.left = `${j * baseSlot}px`;
+          el.style.width = `${baseSlot}px`;
+          el.style.height = `${baseSlot}px`;
+        });
+      });
+    </script>
 
     <script>
       function updateTime() {
