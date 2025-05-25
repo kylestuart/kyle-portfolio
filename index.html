@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <style>
+    <style>
       @font-face {
         font-family: 'Suisse Mono';
         src: url('/fonts/SuisseIntlMono-Regular.woff2') format('woff2');
@@ -17,7 +17,7 @@
       .hover-image {
         will-change: transform;
       }
-            body {
+      body {
         font-family: 'Suisse Mono', monospace;
         background-color: #DAD8D4;
         color: #000;
@@ -60,7 +60,7 @@
           </svg>
         </div>
       </div>
-      <div class="header-text inline-flex  p-[8px_16px] justify-end items-center gap-[10px] rounded-[8px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[50px]">
+      <div class="header-text inline-flex  p-[8px_22px] justify-end items-center gap-[10px] rounded-[8px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[50px]">
         <span id="time">--:--:--</span>
         <span id="weather">Loading…</span>
       </div>
@@ -68,7 +68,7 @@
 
     <main class="pt-[64px] pb-[64px] px-[8px] w-full min-h-screen flex items-center justify-center">
       <div id="imageRow" class="relative w-screen h-[200px] flex items-center px-0"></div>
-          </main>
+    </main>
 
     <footer class="w-full fixed bottom-0 left-0 flex justify-start px-[8px] py-[8px]">
       <div class="header-text flex w-[104px] p-[8px] justify-center items-center gap-[10px] rounded-[8px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[100px]">
@@ -84,18 +84,15 @@
         let containerWidth = imageRow.offsetWidth;
 
         const fragment = document.createDocumentFragment();
-
-for (let i = 0; i < numImages; i++) {
-  const img = document.createElement('img');
-  img.src = `/images/image-${String(i + 1).padStart(2, '0')}.jpg`;
-  img.className = 'hover-image absolute top-1/2 -translate-y-1/2';
-  img.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease, left 0.3s ease';
-  img.setAttribute('data-index', i);
-  fragment.appendChild(img);
-}
-
-imageRow.appendChild(fragment);
-
+        for (let i = 0; i < numImages; i++) {
+          const img = document.createElement('img');
+          img.src = `images/image-${String(i + 1).padStart(2, '0')}.jpg`;
+          img.className = 'hover-image absolute top-1/2 -translate-y-1/2';
+          img.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease, left 0.3s ease';
+          img.setAttribute('data-index', i);
+          fragment.appendChild(img);
+        }
+        imageRow.appendChild(fragment);
 
         const images = document.querySelectorAll('.hover-image');
 
@@ -135,16 +132,13 @@ imageRow.appendChild(fragment);
 
           img.addEventListener('mouseleave', () => {
             requestAnimationFrame(() => {
-          layoutImages();
-        });
+              layoutImages();
+            });
           });
         });
 
         layoutImages();
 
-        
-
-        // Time and weather
         function updateTime() {
           const now = new Date();
           const time = now.toLocaleTimeString('en-US', { hour12: false });
