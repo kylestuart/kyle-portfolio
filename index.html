@@ -83,14 +83,19 @@
         const baseWidth = 80;
         let containerWidth = imageRow.offsetWidth;
 
-        for (let i = 0; i < numImages; i++) {
-          const img = document.createElement('img');
-          img.src = `https://placehold.co/80x80?text=${i + 1}`;
-          img.className = 'hover-image absolute top-1/2 -translate-y-1/2';
-          img.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease, left 0.3s ease';
-          img.setAttribute('data-index', i);
-          imageRow.appendChild(img);
-        }
+        const fragment = document.createDocumentFragment();
+
+for (let i = 0; i < numImages; i++) {
+  const img = document.createElement('img');
+  img.src = `/images/image-${String(i + 1).padStart(2, '0')}.jpg`;
+  img.className = 'hover-image absolute top-1/2 -translate-y-1/2';
+  img.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease, left 0.3s ease';
+  img.setAttribute('data-index', i);
+  fragment.appendChild(img);
+}
+
+imageRow.appendChild(fragment);
+
 
         const images = document.querySelectorAll('.hover-image');
 
@@ -129,7 +134,9 @@
           });
 
           img.addEventListener('mouseleave', () => {
-            layoutImages();
+            requestAnimationFrame(() => {
+          layoutImages();
+        });
           });
         });
 
