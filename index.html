@@ -83,6 +83,15 @@
 
     <script>
       window.addEventListener('DOMContentLoaded', () => {
+        const gridLayout01 = document.getElementById('gridLayout01');
+        if (gridLayout01.children.length === 0) {
+          for (let i = 0; i < 16; i++) {
+            const img = document.createElement('img');
+            img.src = `images/image-${String(i + 1).padStart(2, '0')}.jpg`;
+            img.className = 'w-full h-auto object-cover';
+            gridLayout01.appendChild(img);
+          }
+        }
         const layout01 = document.getElementById('layout01');
         const layout02 = document.getElementById('layout02');
         const gridIcon01 = document.querySelectorAll('svg')[0].parentElement;
