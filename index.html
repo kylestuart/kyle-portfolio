@@ -67,9 +67,8 @@
     </header>
 
     <main class="pt-[64px] pb-[64px] w-full min-h-screen">
-      <div id="layout01" class="hidden w-full h-full overflow-hidden px-[8px] pt-[64px] pb-[64px] flex items-center justify-center">
-        <div id="gridContainer01" class="relative w-full h-full overflow-hidden">
-          <div id="gridLayout01" class="absolute top-1/2 left-1/2 grid grid-cols-4 gap-0 w-[150vw] transform -translate-x-1/2 -translate-y-1/2 max-w-none"></div>
+      <div id="layout01" class="hidden w-full h-full px-[8px] pt-[64px] pb-[64px] flex items-center justify-center">
+        <div id="gridLayout01" class="grid grid-cols-4 gap-0 w-[150vw] max-w-none"></div>
         </div></div>
       </div>
       <div id="layout02" class="flex items-center justify-center w-full min-h-[calc(100vh-128px)] pt-[64px] pb-[64px]">
@@ -91,32 +90,7 @@
 
         gridIcon01.addEventListener('click', () => {
           layout01.classList.remove('hidden');
-          const gridContainer01 = document.getElementById('gridContainer01');
-          let isDragging = false;
-          let startX, startY, currentX = 0, currentY = 0;
-
-          const onMouseDown = (e) => {
-            isDragging = true;
-            startX = e.clientX - currentX;
-            startY = e.clientY - currentY;
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-          };
-
-          const onMouseMove = (e) => {
-            if (!isDragging) return;
-            currentX = e.clientX - startX;
-            currentY = e.clientY - startY;
-            gridLayout01.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
-          };
-
-          const onMouseUp = () => {
-            isDragging = false;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-          };
-
-          gridContainer01.addEventListener('mousedown', onMouseDown);
+          
           const gridLayout01 = document.getElementById('gridLayout01');
           if (gridLayout01.children.length === 0) {
             for (let i = 0; i < 16; i++) {
