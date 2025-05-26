@@ -67,7 +67,9 @@
     </header>
 
     <main class="pt-[64px] pb-[64px] w-full min-h-screen">
-      <div id="layout01" class="hidden w-full h-full"></div>
+      <div id="layout01" class="hidden w-full h-full px-[8px] pt-[64px] pb-[64px]">
+        <div id="gridLayout01" class="grid grid-cols-4 gap-[16px] w-full max-w-screen-xl mx-auto"></div>
+      </div>
       <div id="layout02" class="flex items-center justify-center w-full min-h-[calc(100vh-128px)] pt-[64px] pb-[64px]">
         <div id="imageRow" class="relative w-full h-[200px] flex items-center m-0"></div>
     </main>
@@ -87,6 +89,15 @@
 
         gridIcon01.addEventListener('click', () => {
           layout01.classList.remove('hidden');
+          const gridLayout01 = document.getElementById('gridLayout01');
+          if (gridLayout01.children.length === 0) {
+            for (let i = 0; i < 16; i++) {
+              const img = document.createElement('img');
+              img.src = `images/image-${String(i + 1).padStart(2, '0')}.jpg`;
+              img.className = 'w-full h-auto object-cover';
+              gridLayout01.appendChild(img);
+            }
+          }
           layout02.classList.add('hidden');
         });
 
