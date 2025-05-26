@@ -4,34 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kyle Stuart — Portfolio</title>
-    <script src="https://cdn.tailwindcss.com">        // Drag logic for layout01
-        let isDragging = false;
-        let startX, startY, currentX = 0, currentY = 0;
-        const gridLayout01 = document.getElementById('gridLayout01');
-
-        const onMouseDown = (e) => {
-          isDragging = true;
-          startX = e.clientX - currentX;
-          startY = e.clientY - currentY;
-          document.addEventListener('mousemove', onMouseMove);
-          document.addEventListener('mouseup', onMouseUp);
-        };
-
-        const onMouseMove = (e) => {
-          if (!isDragging) return;
-          currentX = e.clientX - startX;
-          currentY = e.clientY - startY;
-          gridLayout01.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px)`;
-        };
-
-        const onMouseUp = () => {
-          isDragging = false;
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
-        };
-
-        document.getElementById('gridContainer01').addEventListener('mousedown', onMouseDown);
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <style>
@@ -118,6 +91,32 @@
 
         gridIcon01.addEventListener('click', () => {
           layout01.classList.remove('hidden');
+          const gridContainer01 = document.getElementById('gridContainer01');
+          let isDragging = false;
+          let startX, startY, currentX = 0, currentY = 0;
+
+          const onMouseDown = (e) => {
+            isDragging = true;
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+          };
+
+          const onMouseMove = (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            gridLayout01.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
+          };
+
+          const onMouseUp = () => {
+            isDragging = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+          };
+
+          gridContainer01.addEventListener('mousedown', onMouseDown);
           const gridLayout01 = document.getElementById('gridLayout01');
           if (gridLayout01.children.length === 0) {
             for (let i = 0; i < 16; i++) {
