@@ -70,7 +70,9 @@
       <div id="layout01" class="w-full h-full mt-0 flex items-start justify-center">
         <div id="gridLayout01" class="flex w-[150vw] max-w-none gap-0">
           <div id="leftCol" class="flex flex-col w-1/3"></div>
-          <div id="middleCol" class="flex flex-col w-1/3 will-change-transform"></div>
+          <div id="middleCol" class="flex flex-col w-1/3 will-change-transform overflow-hidden">
+  <div id="middleColInner" class="flex flex-col"></div>
+</div>
           <div id="rightCol" class="flex flex-col w-1/3"></div>
         </div>
       </div>
@@ -89,15 +91,16 @@
       window.addEventListener('DOMContentLoaded', () => {
         const leftCol = document.getElementById('leftCol');
         const middleCol = document.getElementById('middleCol');
+        const middleColInner = document.getElementById('middleColInner');
         const rightCol = document.getElementById('rightCol');
 
-        if (leftCol.children.length === 0 && middleCol.children.length === 0 && rightCol.children.length === 0) {
+        if (leftCol.children.length === 0 && middleColInner.children.length === 0 && rightCol.children.length === 0) {
           for (let i = 0; i < 15; i++) {
             const img = document.createElement('img');
             img.src = `images/image-${String(i + 1).padStart(2, '0')}.jpg`;
             img.className = 'w-full h-auto object-cover';
             if (i % 3 === 0) leftCol.appendChild(img);
-            else if (i % 3 === 1) middleCol.appendChild(img);
+            else if (i % 3 === 1) middleColInner.appendChild(img);
             else rightCol.appendChild(img);
           }
         }
@@ -201,8 +204,7 @@
 
         window.addEventListener('scroll', () => {
           const scrollY = window.scrollY;
-          const middleCol = document.getElementById('middleCol');
-          middleCol.style.transform = `translateY(${-scrollY}px)`;
+          middleColInner.style.transform = `translateY(${scrollY}px)`;
         });
         setInterval(updateTime, 1000);
       });
