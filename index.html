@@ -71,7 +71,7 @@
         <div id="gridLayout01" class="flex w-[150vw] max-w-none gap-0">
           <div id="leftCol" class="flex flex-col w-1/3"></div>
           <div id="middleCol" class="relative flex flex-col w-1/3 overflow-hidden" >
-  <div id="middleColInner" class="flex flex-col" style="position: absolute; top: 0; left: 0; right: 0;"></div>
+  <div id="middleColInner" class="flex flex-col" style="position: absolute; bottom: 0; left: 0; right: 0;"></div>
 </div>
           <div id="rightCol" class="flex flex-col w-1/3"></div>
         </div>
@@ -203,12 +203,8 @@
         updateWeather();
 
         window.addEventListener('scroll', () => {
-  const maxScroll = document.body.scrollHeight - window.innerHeight;
   const scrollY = window.scrollY;
-  const percent = scrollY / maxScroll;
-  const maxOffset = middleColInner.scrollHeight - middleCol.clientHeight;
-  const offset = maxOffset * (1 - percent);
-  middleColInner.style.transform = `translateY(-${offset}px)`;
+  middleColInner.style.transform = `translateY(${scrollY}px)`;
 });
         setInterval(updateTime, 1000);
       });
